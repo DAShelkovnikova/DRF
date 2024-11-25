@@ -8,14 +8,6 @@ from users.models import Payment, User
 from users.serializers import PaymentSerializer, UserSerializer
 
 
-class PaymentsListAPIView(generics.ListAPIView):
-    serializer_class = PaymentSerializer
-    queryset = Payment.objects.all()
-
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    search_fields = ('payment_lesson', 'payment_course', 'payment_method')
-    ordering_fields = ('payment_date')
-
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -25,3 +17,14 @@ class UserCreateAPIView(CreateAPIView):
         user = serializer.save(is_active=True)
         user.set_password(user.password)
         user.save()
+
+
+
+class PaymentsListAPIView(generics.ListAPIView):
+    serializer_class = PaymentSerializer
+    queryset = Payment.objects.all()
+
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    search_fields = ('payment_lesson', 'payment_course', 'payment_method')
+    ordering_fields = ('payment_date')
+
