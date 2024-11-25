@@ -1,5 +1,7 @@
 from django.db import models
 
+from DRF.settings import AUTH_USER_MODEL
+
 
 class Course(models.Model):
     title = models.CharField(
@@ -8,13 +10,22 @@ class Course(models.Model):
         help_text="Укажите название курса",
     )
     picture = models.ImageField(
-        upload_to="materials/picture", blank=True, null=True, verbose_name="Фото курса"
+        upload_to="materials/picture",
+        blank=True,
+        null=True,
+        verbose_name="Фото курса"
     )
     description = models.TextField(
         blank=True,
         null=True,
         verbose_name="Описание курса",
         help_text="Укажите описание курса",
+    )
+    owner = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True, null=True,
+        verbose_name="Владелец курса"
     )
 
     class Meta:
@@ -37,7 +48,10 @@ class Lesson(models.Model):
         null=True,
     )
     preview = models.ImageField(
-        upload_to="materials/picture", blank=True, null=True, verbose_name="Фото урока"
+        upload_to="materials/picture",
+        blank=True,
+        null=True,
+        verbose_name="Фото урока"
     )
     description = models.TextField(
         blank=True,
@@ -51,6 +65,13 @@ class Lesson(models.Model):
         help_text="Укажите ссылку на видео",
         blank=True,
         null=True,
+    )
+    owner = models.ForeignKey(
+        AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Владелец урока"
     )
 
     class Meta:
