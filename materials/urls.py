@@ -6,9 +6,9 @@ from materials.views import (
     CourseViewSet,
     LessonCreateApiView,
     LessonListApiView,
-    LessonRetrieveApiView,
+    LessonRetrieveAPIView,
     LessonUpdateApiView,
-    LessonDestroyApiView,
+    LessonDestroyApiView
 )
 
 
@@ -18,17 +18,11 @@ router.register("", CourseViewSet)
 
 
 urlpatterns = [
-    path("lessons/", LessonListApiView.as_view(), name="lessons_list"),
-    path("lessons/<int:pk>/", LessonRetrieveApiView.as_view(), name="lessons_retrieve"),
-    path("lessons/create/", LessonCreateApiView.as_view(), name="lessons_create"),
-    path(
-        "lessons/<int:pk>/update/", LessonUpdateApiView.as_view(), name="lessons_update"
-    ),
-    path(
-        "lessons/<int:pk>/delete/",
-        LessonDestroyApiView.as_view(),
-        name="lessons_delete",
-    ),
+    path('lesson/', LessonListApiView.as_view(), name='lesson_list'),
+    path('lesson/<int:pk>/', LessonRetrieveAPIView.as_view(), name='lesson_retrieve'),
+    path('lesson/create/', LessonCreateApiView.as_view(), name='lesson_create'),
+    path('lesson/<int:pk>/update/', LessonUpdateApiView.as_view(), name='lesson_update'),
+    path('lesson/<int:pk>/destroy/', LessonDestroyApiView.as_view(), name='lesson_destroy'),
 ]
 
 urlpatterns += router.urls
