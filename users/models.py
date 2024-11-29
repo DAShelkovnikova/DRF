@@ -59,12 +59,40 @@ class Payment(models.Model):
         null=True,
     )
 
-    payment_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата платежа")
-    amount = models.PositiveIntegerField(verbose_name="Сумма платежа")
+    payment_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата платежа"
+    )
+    amount = models.PositiveIntegerField(
+        verbose_name="Сумма платежа"
+    )
     payment_method = models.CharField(
-        max_length=50, choices=method_choices, verbose_name="Метод оплаты"
+        max_length=50,
+        choices=method_choices,
+        verbose_name="Метод оплаты"
+    )
+    session_id = models.CharField(
+        max_length=255,
+        verbose_name="ID сессии",
+        blank=True,
+        null=True,
+    )
+    link = models.URLField(
+        max_length=400,
+        verbose_name="Ссылка на оплату",
+        blank=True,
+        null=True,
+    )
+    status = models.CharField(
+        max_length=50,
+        verbose_name="Статус платежа",
+        blank=True,
+        null=True,
     )
 
     class Meta:
         verbose_name = "Платеж"
         verbose_name_plural = "Платежи"
+
+    def __str__(self):
+        return self.amount

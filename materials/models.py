@@ -10,10 +10,7 @@ class Course(models.Model):
         help_text="Укажите название курса",
     )
     picture = models.ImageField(
-        upload_to="materials/picture",
-        blank=True,
-        null=True,
-        verbose_name="Фото курса"
+        upload_to="materials/picture", blank=True, null=True, verbose_name="Фото курса"
     )
     description = models.TextField(
         blank=True,
@@ -24,8 +21,9 @@ class Course(models.Model):
     owner = models.ForeignKey(
         AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        blank=True, null=True,
-        verbose_name="Владелец курса"
+        blank=True,
+        null=True,
+        verbose_name="Владелец курса",
     )
 
     class Meta:
@@ -48,10 +46,7 @@ class Lesson(models.Model):
         null=True,
     )
     preview = models.ImageField(
-        upload_to="materials/picture",
-        blank=True,
-        null=True,
-        verbose_name="Фото урока"
+        upload_to="materials/picture", blank=True, null=True, verbose_name="Фото урока"
     )
     description = models.TextField(
         blank=True,
@@ -71,7 +66,7 @@ class Lesson(models.Model):
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        verbose_name="Владелец урока"
+        verbose_name="Владелец урока",
     )
 
     class Meta:
@@ -83,20 +78,15 @@ class Subscription(models.Model):
     user = models.ForeignKey(
         AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        verbose_name='Пользователь',
+        verbose_name="Пользователь",
         blank=True,
-        null=True
+        null=True,
     )
     course = models.ForeignKey(
-        Course,
-        on_delete=models.CASCADE,
-        verbose_name='Курс',
-        blank=True,
-        null=True
+        Course, on_delete=models.CASCADE, verbose_name="Курс", blank=True, null=True
     )
     sign_of_subscription = models.BooleanField(
-        default=False,
-        verbose_name='Признак подписки'
+        default=False, verbose_name="Признак подписки"
     )
 
     class Meta:
@@ -104,4 +94,4 @@ class Subscription(models.Model):
         verbose_name_plural = "Подписки"
 
     def __str__(self):
-        return f'{self.user}: {self.course}'
+        return f"{self.user}: {self.course}"
