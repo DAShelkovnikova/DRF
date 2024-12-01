@@ -21,6 +21,7 @@ from materials.serializers import (
     SubscriptionSerializer,
 )
 from users.permissions import IsModer, IsOwner
+from materials.tasks import course_update
 
 
 class CourseViewSet(ModelViewSet):
@@ -54,6 +55,11 @@ class CourseViewSet(ModelViewSet):
                 ~IsModer | IsOwner,
             )
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        course_update.delay(instance.pk)
+        return instance
 
 
 class LessonCreateApiView(CreateAPIView):
