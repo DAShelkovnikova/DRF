@@ -8,7 +8,6 @@ services:
     expose:
       - "6379"
 
-
   db:
     image: postgres:16-alpine
     restart: on-failure
@@ -44,7 +43,7 @@ services:
   celery:
     build: .
     tty: true
-    command: celery -A config worker -l INFO
+    command: celery -A DRF worker -l INFO
     restart: on-failure
     volumes:
       - .:/app
@@ -58,7 +57,7 @@ services:
   celery-beat:
     build: .
     tty: true
-    command: celery -A config beat -l INFO
+    command: celery -A DRF beat -l INFO
     restart: on-failure
     volumes:
       - .:/app
